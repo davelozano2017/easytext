@@ -55,8 +55,17 @@
 	          processData: false,
             success:function(response)
             {
-              if(response.success == true) {
+              if(response.success === true) {
                 alert('aaa');
+              }
+              else
+              {
+                $.each(response.messages, function(key,value){
+                  var element = $('#' + key);
+                  element.closest('div.form-group')
+                  .find('.label-danger').remove();
+                  element.after(value);
+                });
               }
             }
 	        });
