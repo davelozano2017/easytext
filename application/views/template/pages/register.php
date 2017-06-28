@@ -2,7 +2,7 @@
 <div class="panel panel-default">
 <p class="panel-heading no-collapse">Sign Up</p>
 <div class="panel-body">
-    <form name="FormRegister" action="<?= site_url('execute/createuser')?>" id="register" method="POST" novalidate>
+    <form name="FormRegister" id="register" method="POST" novalidate>
 
         <div class="form-group">
             <label>Full Name</label>
@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <button type="submit" id="register"  class="btn btn-primary pull-right">Register</button>
+        <button type="submit" id="register" ng-disabled="FormRegister.$invalid"  class="btn btn-primary pull-right">Register</button>
         <div class="clearfix"></div>
     </form>
   </div>

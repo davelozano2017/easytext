@@ -2,13 +2,17 @@
 <div class="panel panel-default">
 <p class="panel-heading no-collapse">Recover your password</p>
 <div class="panel-body">
-    <form>
+    <form name="FromRecover" id="recover_step_1" method="POST" novalidate>
         <div class="form-group">
             <label>Email Address</label>
-            <input type="email" class="form-control span12">
+            <input type="email" class="form-control" ng-model="email" name="email" id="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
+            <div ng-messages="FromRecover.email.$error" ng-if="FromRecover.email.$dirty">
+              <span ng-message="pattern" class="label label-danger">Please enter a valid email address.</span>
+              <span ng-message="required" class="label label-danger">Email Address is required.</span>
+            </div>
         </div>
 
-        <a href="index.html" class="btn btn-primary pull-right">Recover Password</a>
+        <button type="submit" id="recover_step_1" ng-disabled="FromRecover.$invalid"  class="btn btn-primary pull-right">Recover Password</button>
         <div class="clearfix"></div>
     </form>
 </div>
