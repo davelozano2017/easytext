@@ -49,6 +49,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+
+//Costum Routes 
+$route['login']     = 'account/Login';
+$route['register']  = 'account/Register';
+$route['recover-via-email']   = 'account/RecoverViaEmail';
+$route['recover-via-phone']   = 'account/RecoverViaPhone';
+$route['recover-choose-method']   = 'account/RecoverChooseMethod';
+//end
+
 $route['default_controller'] = 'Landing';
 $route['404_override'] = '';
-$route['translate_uri_dashes'] = FALSE;
+$route['translate_uri_dashes'] = TRUE;

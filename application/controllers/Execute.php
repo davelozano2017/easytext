@@ -7,7 +7,8 @@ class Execute extends CI_Controller {
 public function __construct() {
     parent::__construct();
     $this->fullname  = 'required|trim|min_length[4]|max_length[50]|xss_clean';
-    $this->email     = 'required|trim|is_unique[et_accounts_tbl.email]|xss_clean';
+    $this->contact   = 'required|trim|xss_clean';
+    $this->email     = 'required|trim|is_unique[et_accounts_tbl.email]|valid_email|xss_clean';
     $this->username  = 'required|trim|is_unique[et_accounts_tbl.username]|min_length[6]|max_length[30]|xss_clean';
     $this->password  = 'required|trim|min_length[6]|max_length[30]|xss_clean';
     $this->cpassword = 'required|trim|min_length[6]|max_length[30]|matches[password]|xss_clean';
@@ -37,9 +38,7 @@ public function createuser() {
           );
         $result = $this->model->CreateUser($data);
           if($result) { $validator['success'] = true; };
-    }
-    else
-    {
+    } else {
       foreach ($_POST as $key => $value) {
         $validator['messages'][$key] = form_error($key);
         $validator['success'] = false;
@@ -48,6 +47,27 @@ public function createuser() {
     echo json_encode($validator);
   }
 
+public function recoverviaphonestep1() {
+   $validator = array('success' => false, 'messages'=> array());
+    $this->validate('contact','contact',$this->contact);
+    $this->validate('username','username',$this->username);
+    $this->form_validation->set_error_delimiters('<label class="label label-danger">','</label>');
+    if($this->form_validation->run() == TRUE) {
+        $data = array(
+            'username' 	    => $this->post('username'),
+            'contact'       => $this->post('contact')
+          );
+        $result = $this->model->RecoverViaPhoneStep1($data);
+          if($result) { $validator['success'] = true; };
+    } else {
+      foreach ($_POST as $key => $value) {
+        $validator['messages'][$key] = form_error($key);
+        $validator['success'] = false;
+      }
+    echo json_encode($validator);
+    }
+
+}
 
 
 // costum method for $this->input->post();
