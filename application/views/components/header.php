@@ -13,6 +13,8 @@
     <script src="<?= site_url('assets/lib/jquery-1.11.1.min.js')?>" type="text/javascript"></script>
 
     <link rel="stylesheet" type="text/css" href="<?= site_url('assets/stylesheets/theme.css')?>">
+    <link rel="stylesheet" type="text/css" href="<?= site_url('assets/amaran/dist/css/amaran.min.css')?>">
+    <link rel="stylesheet" type="text/css" href="<?= site_url('assets/amaran/dist/css/animate.min.css')?>">
     <link rel="stylesheet" type="text/css" href="<?= site_url('assets/stylesheets/premium.css')?>">
     <link rel="stylesheet" type="text/css" href="<?= site_url('assets/select2/dist/css/select2.min.css')?>">
 

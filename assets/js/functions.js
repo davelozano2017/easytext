@@ -56,8 +56,18 @@ function recoverviaphonestep1() {
       success:function(response) {
            if(response.success === true) {
            $('form#recoverviaphone')[0].reset();
+          } else if(response.page == 'recovery') {
+            $.amaran({
+                'theme'     :'colorful',
+                'content'   :{
+                  bgcolor:'#ff0000',
+                  color:'#fff',
+                  message: response.message
+                },
+                'position'  :'top right',
+                'outEffect' :'slideBottom'
+            }); 
            } else {
-             alert(response.message)
              $.each(response.messages, function(key,value){
                var element = $('#' + key);
                element.closest('div.form-group')

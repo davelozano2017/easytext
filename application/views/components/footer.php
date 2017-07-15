@@ -1,4 +1,5 @@
 <script src="<?= site_url('assets/js/jquery.min.js')?>"></script>
+<script src="<?= site_url('assets/amaran/dist/js/jquery.amaran.min.js')?>" charset="utf-8"></script>
 <script src="<?= site_url('assets/lib/bootstrap/js/bootstrap.min.js')?>"></script>
 <script src="<?= site_url('assets/select2/dist/js/select2.full.min.js')?>"></script>
 <script src="<?= site_url('assets/angular/angular-main.min.js')?>"></script>

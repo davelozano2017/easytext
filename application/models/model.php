@@ -17,7 +17,7 @@ class model extends CI_Model {
     if($check->num_rows() > 0) {
       return true;
     } else {
-      echo json_encode(array('message'=>'username not found'));
+      echo json_encode(array('page' => 'recovery' ,'message'=>'username not found'));
 
     }
   }
