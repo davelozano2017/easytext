@@ -3,8 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Execute extends CI_Controller {
 
 // Save user information from registration page
-public function __construct() {
+ function __construct() {
     parent::__construct();
+    $this->load->library('phpmailer');
     $this->fullname  = 'required|trim|min_length[4]|max_length[50]|xss_clean';
     $this->contact   = 'required|trim|xss_clean|regex_match[/^(.*?[0-9]){10,}$/]|min_length[10]|max_length[10]';
     $this->securityc = 'required|trim|xss_clean|regex_match[/^(.*?[0-9]){6,}$/]|min_length[6]|max_length[6]';
@@ -82,6 +83,31 @@ public function recoverviaphonestep1() {
     echo json_encode($validator);
     }
 
+}
+
+
+public function sendemail() {
+     $mail = new PHPMailer();
+        $mail->IsSMTP(); // we are going to use SMTP
+        $mail->SMTPAuth   = true; // enabled SMTP authentication
+        $mail->SMTPSecure = "ssl";  // prefix for secure protocol to connect to the server
+        $mail->Host       = "smtp.gmail.com";      // setting GMail as our SMTP server
+        $mail->Port       = 465;                   // SMTP port to connect to GMail
+        $mail->Username   = "skidmhorecomputerworld@gmail.com";  // user email address
+        $mail->Password   = "computerworld";            // password in GMail
+        $mail->SetFrom('info@yourdomain.com', 'Firstname Lastname');  //Who is sending the email
+        $mail->AddReplyTo("response@yourdomain.com","Firstname Lastname");  //email address that receives the response
+        $mail->Subject    = "Email subject";
+        $mail->Body      = "HTML message";
+        $mail->AltBody    = "Plain text message";
+        $destino = "addressee@example.com"; // Who is addressed the email to
+        $mail->AddAddress('lozanojohndavid@gmail.com', "John Doe");
+
+        if(!$mail->Send()) {
+            $data["message"] = "Error: " . $mail->ErrorInfo;
+        } else {
+            $data["message"] = "Message sent correctly!";
+        }
 }
 
 public function recoverviaphonestep2() {
