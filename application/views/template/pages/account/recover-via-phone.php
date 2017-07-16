@@ -6,7 +6,7 @@
 
         <div class="form-group">
             <label>Username</label>
-            <input type="text" value="<?php echo $this->session->userdata('securitycode')?>" class="form-control span12"  name="username" id="username" ng-minlength="6" ng-maxlength="50" required>
+            <input type="text" class="form-control span12"  name="username" id="username" ng-minlength="6" ng-maxlength="50" required>
             <div ng-messages="FormRecover.username.$error" ng-if="FormRecover.username.$dirty">
               <span ng-message="minlength" class="label label-danger">Username is too short</span>
               <span ng-message="maxlength" class="label label-danger">Username is too long</span>
@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <button type="submit" id="recover_step_1" ng-disabled="!FormRecover.$valid" class="btn btn-primary pull-right">Recover Password</button>
+        <button type="submit" id="recover_via_phone_step_1" ng-disabled="!FormRecover.$valid" class="btn btn-primary pull-right">Recover Password</button>
         <div class="clearfix"></div>
     </form>
 </div>

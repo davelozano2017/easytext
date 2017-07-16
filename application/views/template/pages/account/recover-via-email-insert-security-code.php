@@ -3,7 +3,7 @@
 <p class="panel-heading no-collapse">Recover your password</p>
 <div class="panel-body">
 
-    <form name="FormSecurityCode" id="recoverviaphoneinsertsecuritycode" method="POST" novalidate>
+    <form name="FormSecurityCode" id="recoverviaemailinsertsecuritycode" method="POST" novalidate>
 
         <div class="form-group">
             <label>Security Code</label>
@@ -14,8 +14,8 @@
               <span ng-message="pattern" class="label label-danger">number only</span>
             </div>
         </div>
-        <button type="submit" id="recover_via_phone_step_2" ng-disabled="!FormSecurityCode.$valid" class="btn btn-primary pull-right">Verify</button>
-        <label class="remember-me">Click <a id="resend" href="#">here</a> to resend.</label>
+        <button type="submit" id="recover_via_email_step_2" ng-disabled="!FormSecurityCode.$valid" class="btn btn-primary pull-right">Verify</button>
+        <label class="remember-me">Click <a id="resendemail" href="#">here</a> to resend.</label>
         <div class="clearfix"></div>
     </form>
 </div>

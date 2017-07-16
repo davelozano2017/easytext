@@ -1,13 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class RecoverViaPhoneChangePassword extends CI_Controller {
+class RecoverViaEmailInsertSecurityCode extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$code = $this->session->userdata('phone-code');
+		$page = $this->session->userdata('recovery-phone');
 		$email = $this->session->userdata('email-code');
-		if(!isset($code) == 'no') {
+		$re = $this->session->userdata('recovery-email');
+		
+		if(!isset($re)) {
+			redirect('recover-via-email');
+		} elseif($page == 'yes') {
 			redirect('recover-via-phone-insert-security-code');
 		} elseif($email == 'yes') {
 			redirect('recover-via-email-change-password');
@@ -16,7 +20,7 @@ class RecoverViaPhoneChangePassword extends CI_Controller {
 
 	public function index() {
     	$this->load->view('components/header');
-		$this->load->view('template/pages/account/recover-via-phone-change-password');
+		$this->load->view('template/pages/account/recover-via-email-insert-security-code');
 		$this->load->view('components/footer');
 	}
     

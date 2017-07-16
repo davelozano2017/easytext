@@ -51,17 +51,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 //Costum Routes 
+
+#################################################################
 $route['login']     = 'account/Login';
 $route['register']  = 'account/Register';
-#################################################################
-$route['recover-via-phone']   = 'account/RecoverViaPhone';
-$route['recover-via-phone-insert-security-code']   = 'account/RecoverViaPhoneInsertSecurityCode';
-$route['recover-via-phone-change-password']   = 'account/RecoverViaPhoneChangePassword';
-#################################################################
-$route['recover-via-email']   = 'account/RecoverViaEmail';
-#################################################################
 $route['recover-choose-method']   = 'account/RecoverChooseMethod';
 #################################################################
+
+#################################################################
+$route['recover-via-phone']   = 'account/RecoverViaPhone';
+$route['phone-security-code']   = 'account/RecoverViaPhoneInsertSecurityCode';
+$route['phone-change-password']   = 'account/RecoverViaPhoneChangePassword';
+#################################################################
+
+#################################################################
+$route['email-security-code']   = 'account/RecoverViaEmailInsertSecurityCode';
+$route['recover-via-email']   = 'account/RecoverViaEmail';
+$route['email-change-password']   = 'account/RecoverViaEmailChangePassword';
+#################################################################
+
 
 //end
 

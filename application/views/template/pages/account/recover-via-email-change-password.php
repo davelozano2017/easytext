@@ -3,7 +3,7 @@
 <p class="panel-heading no-collapse">Recover your password</p>
 <div class="panel-body">
 
-    <form name="FormChangePassword" id="recoverviaphonechangepassword" method="POST" novalidate>
+    <form name="FormChangePassword" id="recoverviaemailchangepassword" method="POST" novalidate>
 
          <div class="form-group">
             <label>Password</label>
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <button type="submit" id="recover_via_phone_step_3" class="btn btn-primary pull-right">Save Changes</button>
+        <button type="submit" id="recover_via_email_step_3" class="btn btn-primary pull-right">Save Changes</button>
         <div class="clearfix"></div>
     </form>
 </div>
