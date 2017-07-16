@@ -53,9 +53,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //Costum Routes 
 $route['login']     = 'account/Login';
 $route['register']  = 'account/Register';
-$route['recover-via-email']   = 'account/RecoverViaEmail';
+#################################################################
 $route['recover-via-phone']   = 'account/RecoverViaPhone';
+$route['recover-via-phone-insert-security-code']   = 'account/RecoverViaPhoneInsertSecurityCode';
+$route['recover-via-phone-change-password']   = 'account/RecoverViaPhoneChangePassword';
+#################################################################
+$route['recover-via-email']   = 'account/RecoverViaEmail';
+#################################################################
 $route['recover-choose-method']   = 'account/RecoverChooseMethod';
+#################################################################
+
 //end
 
 $route['default_controller'] = 'Landing';

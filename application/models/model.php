@@ -11,14 +11,31 @@ class model extends CI_Model {
 
 
   public function RecoverViaPhoneStep1($data) {
-    $check = $this->db->select('username')
-    ->from('et_accounts_tbl')
-    ->where(['username' => $data['username']])->get();
+    $check = $this->db->select('*')
+    ->get_where('et_accounts_tbl',array('username' => $data['username'],'contact' => $data['contact']));
     if($check->num_rows() > 0) {
-      return true;
+      return $check->row();
     } else {
-      echo json_encode(array('page' => 'recovery' ,'message'=>'username not found'));
+      echo json_encode(array('page' => 'recovery' ,'message'=>'Invalid username or contact number'));
 
+    }
+  }
+
+  public function RecoverViaPhoneStep2($data) {
+    $check = $this->db->select('*')->get_where('et_accounts_tbl',array('security_code' => $data['securitycode']));
+    if($check->num_rows() > 0) {
+      return $check;
+    } else {
+      echo json_encode(array('page' => 'step2' ,'message'=>'Invalid security code'));
+    }
+  }
+  
+  public function RecoverViaPhoneStep3($data) {
+    $result = $this->db->where(['security_code'=>$data['securitycode']])
+    ->set(array('password' => $data['password'], 'security_code' => rand(111111,999999)))
+    ->update($this->et_accounts_tbl);
+    if($result) {
+      return $result;
     }
   }
 
