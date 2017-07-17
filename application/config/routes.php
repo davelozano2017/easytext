@@ -55,6 +55,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 #################################################################
 $route['login']     = 'account/Login';
 $route['register']  = 'account/Register';
+$route['activate']   = 'account/ActivateAccount';
 $route['recover-choose-method']   = 'account/RecoverChooseMethod';
 #################################################################
 

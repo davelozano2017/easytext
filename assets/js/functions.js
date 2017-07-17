@@ -2,6 +2,7 @@ var site_url = 'http://localhost/easytext/';
 function register() {
   $(document).ready(function(){
     $("#register").submit(function(event) {
+      $('button#register').html('Please Wait').attr('disabled',true);
        event.preventDefault();
        var form = $(this);
        $.ajax({
@@ -12,7 +13,8 @@ function register() {
          processData: false,
          success:function(response) {
            if(response.success === true) {
-           $('form#register')[0].reset();
+           success(response.message);
+           $('button#register').html('Register').attr('disabled',false);
            } else {
              $.each(response.messages, function(key,value){
                var element = $('#' + key);
@@ -26,6 +28,9 @@ function register() {
      });
   });
 }
+
+
+
 
 function login() {
   $(document).ready(function(){
@@ -192,6 +197,9 @@ function recoverviaemailstep1() {
           setTimeout(function(){
              location.href = site_url + 'email-security-code';
           },3000);
+          } else if(response.success == false) {
+            error(response.message);
+            $('#recover_via_email_step_1').html('Recover Password').attr('disabled',false);
           } else if(response.page == 'recovery') {
             error(response.message);
             $('#recover_via_email_step_1').html('Recover Password').attr('disabled',false);

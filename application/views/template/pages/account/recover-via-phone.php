@@ -16,8 +16,7 @@
 
         <div class="form-group">
             <label>Contact Number</label>
-            <input type="text" class="form-control" name="contact" id="contact" ng-model="contact" id="contact" ng-pattern="/^(.*?[0-9]){10,}$/" ng-maxlength="10"required>
-        
+            <input type="text" class="form-control" name="contact" id="contact" ng-model="contact" ng-pattern="/^(.*?[0-9]){10,}$/" ng-maxlength="10"required>
             <div ng-messages="FormRecover.contact.$error" ng-if="FormRecover.contact.$dirty">
               <span ng-message="required" class="label label-danger">Contact is required</span>
               <span ng-message="maxlength" class="label label-danger">Please type 10 digits of your number</span>
