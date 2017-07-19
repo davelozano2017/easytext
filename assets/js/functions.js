@@ -6,7 +6,7 @@ function register() {
        event.preventDefault();
        var form = $(this);
        $.ajax({
-         url:  site_url + 'execute/createuser',
+         url:  site_url + 'executecreateaccount/createuser',
          type: 'post',
          data: form.serialize(),
          dataType: 'json',
@@ -30,11 +30,28 @@ function register() {
 }
 
 
-
-
 function login() {
   $(document).ready(function(){
-
+    $('button#login').click(function(e){
+      $('button#login').html('Please Wait').attr('disabled',true);
+      var form = $('form').serialize();
+      $.ajax({
+        type: 'POST',
+        url: site_url + 'execute/login',
+        data: form,
+        cache: false,
+        dataType: 'json',
+        success:function(response) {
+          if(response.success == true) {
+            $('button#login').html('Sign In').attr('disabled',false);
+            location.href = site_url + 'profile';
+          } else {
+            $('button#login').html('Sign In').attr('disabled',false);
+            error(response.message);
+          }
+        }
+      });
+    });
   });
 }
 
@@ -286,7 +303,7 @@ function resendviaemail() {
     $('#recover_via_email_step_2').html('Please Wait');
     $.ajax({
       type: 'POST',
-      url : site_url + 'execute/sendemail',
+      url : site_url + 'executecreateaccount/sendemail',
       dataType: 'Json',
       cache: false,
       success:function(response) {

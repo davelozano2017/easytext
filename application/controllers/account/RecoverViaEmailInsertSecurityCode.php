@@ -16,8 +16,11 @@ class RecoverViaEmailInsertSecurityCode extends CI_Controller {
 		} elseif($email == 'yes') {
 			redirect('recover-via-email-change-password');
 		}
-	}
 
+		$session_id = $this->session->userdata('session_id');
+		if(isset($session_id)){ redirect('profile');};
+	}
+	
 	public function index() {
     	$this->load->view('components/header');
 		$this->load->view('template/pages/account/recover-via-email-insert-security-code');

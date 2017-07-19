@@ -47,4 +47,37 @@ class model extends CI_Model {
     }
   }
 
+  public function ActivateAccount($code) {
+    $result = $this->db->where(['security_code' => $code])
+    ->set(array('status' => 0, 'security_code' => rand(111111,999999)))
+    ->update($this->et_accounts_tbl);
+    if($result) {
+      return $result;
+    }
+  }
+  
+  public function UserLogin($username,$password) {
+		$this->db->select('*')->from($this->et_accounts_tbl)->where('username', $username);
+		$hash = $this->db->get()->row('password');
+		return $this->verify($password, $hash);
+	}
+
+  public function GetId($username) {
+		$this->db->select('*')->from($this->et_accounts_tbl)->where('username', $username);
+		return $this->db->get()->row('id');
+	}
+
+	public function GetUserInformation($id) {
+		$this->db->from($this->et_accounts_tbl)->where('id', $id);
+		return $this->db->get()->row();
+	}
+
+  public function GetUserData($id) {
+    $result = $this->db->get_where($this->et_accounts_tbl, array('id' => $id));
+    return $result->result();
+  }
+
+  private function verify($password, $hash) {
+		return password_verify($password, $hash);
+	}
 }

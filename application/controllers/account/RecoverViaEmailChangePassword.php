@@ -12,7 +12,11 @@ class RecoverViaEmailChangePassword extends CI_Controller {
 		} elseif($phone == 'yes') {
 			redirect('recover-via-phone-change-password');
 		}
+		$session_id = $this->session->userdata('session_id');
+		if(isset($session_id)){ redirect('profile');};
 	}
+
+	
 
 	public function index() {
     	$this->load->view('components/header');
