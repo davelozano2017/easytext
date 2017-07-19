@@ -41,47 +41,31 @@ $data = array('fullname' => $row->fullname,'email' => $row->email,'contact' => $
 
 <div class="content">
     <div class="header">
-        <h1 class="page-title">Add Contact</h1>
+        <h1 class="page-title">My Contacts</h1>
         <ul class="breadcrumb">
             <li>Account</li>
-            <li class="active"><a href="<?= site_url('add-contact')?>"> Add Contact</a></li>
+            <li><a href="<?= site_url('add-contact')?>"> Add Contact</a></li>
+            <li class="active"><a href="<?= site_url('my-contacts')?>"> My Contacts</a></li>
         </ul>
     </div>
 <div class="main-content">
 <!-- Start -->
 <form method="POST" name="FormAddContact" novalidate>
-    <button type="submit" id="addcontact" ng-disabled="!FormAddContact.$valid" class="btn btn-primary">Add</button>
-    <a href="<?=site_url('my-contacts')?>" class="btn btn-primary">Contacts</a>
+    <a href="<?=site_url('add-contact')?>" class="btn">Back</a>
     <hr>
            
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#addcontacts" data-toggle="tab">Add Contacts</a></li>
+    <li class="active"><a href="#mycontacts" data-toggle="tab">My Contacts</a></li>
   </ul>
 
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
       <br>
 
       <div id="myTabContent" class="tab-content">
-        <div class="tab-pane active in" id="addcontacts">
-            
-            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" ng-model="fullname" name="fullname" id="fullname" class="form-control" ng-pattern="/^(.*?[a-zA-Z]){2,}$/" required>
-                <div ng-messages="FormAddContact.fullname.$error" ng-if="FormAddContact.fullname.$dirty">
-                    <span ng-message="required" class="label label-danger">Name is required</span>
-                    <span ng-message="pattern" class="label label-danger">Name is incomplete</span>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Contact</label>
-                <input type="text" class="form-control" name="contact" id="contact" ng-model="contact" id="contact" ng-pattern="/^(.*?[0-9]){10,}$/" ng-maxlength="10"required>
-                <div ng-messages="FormAddContact.contact.$error" ng-if="FormAddContact.contact.$dirty">
-                    <span ng-message="required" class="label label-danger">Contact is required</span>
-                    <span ng-message="maxlength" class="label label-danger">Please type 10 digits of your number</span>
-                    <span ng-message="pattern" class="label label-danger">number only</span>
-                </div>
-            </div>
+        <div class="tab-pane active in" id="mycontacts">
+           
+                <div id="show"></div>
 
         </div>
 

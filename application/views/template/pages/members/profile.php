@@ -1,7 +1,7 @@
 <?php 
 $role = $this->session->userdata('role');
 foreach($results as $row) {
-$data = array('fullname' => $row->fullname,'email' => $row->email,'contact' => $row->contact, 'date' => $row->date);
+$data = array('id' => $row->id,'fullname' => $row->fullname,'email' => $row->email,'contact' => $row->contact, 'date' => $row->date);
 }
 ?>
 <div class="sidebar-nav">
@@ -50,9 +50,8 @@ $data = array('fullname' => $row->fullname,'email' => $row->email,'contact' => $
     </div>
 <div class="main-content">
 <!-- Start -->
-<form method="POST" name="FormProfileUpdate">
-    <button type="submit" ng-disabled="!FormProfileUpdate.$valid" class="btn btn-primary">Save</button>
-    <a href="<?=site_url('compose')?>" class="btn">Cancel</a>
+<form method="POST" name="FormProfileUpdate" novalidate>
+    <button type="submit" id="update" onclick="updateprofile('<?php echo $data['id']?>')" ng-disabled="!FormProfileUpdate.$valid" class="btn btn-primary">Save</button>
     <hr>
     <ul class="nav nav-tabs">
         <li class="active"><a href="#" data-toggle="tab">Profile</a></li>
@@ -81,12 +80,9 @@ $data = array('fullname' => $row->fullname,'email' => $row->email,'contact' => $
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="text" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" class="form-control" ng-model="email" name="email" required>
-                    <div ng-messages="FormProfileUpdate.email.$error" ng-if="FormProfileUpdate.email.$dirty">
-                        <span ng-message="pattern" class="label label-danger">Please enter a valid email address.</span>
-                        <span ng-message="required" class="label label-danger">Email Address is required.</span>
-                    </div>
+                    <p class="form-control"> <?php echo $data['email']?></p>
                 </div>
+
                 <div class="form-group">
                     <label>Membership date</label>
                     <p class="form-control"> <?php echo $data['date']?></p>
@@ -106,7 +102,6 @@ $this->load->view('components/footer');
     app.controller('MyCtrl',function($scope){
         $scope.fullname = '<?php echo$data['fullname']?>';
         $scope.contact  = '<?php echo$data['contact']?>';
-        $scope.email    = '<?php echo$data['email']?>';
     });
 </script>
 

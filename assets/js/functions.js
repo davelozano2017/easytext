@@ -29,7 +29,6 @@ function register() {
   });
 }
 
-
 function login() {
   $(document).ready(function(){
     $('button#login').click(function(e){
@@ -43,7 +42,6 @@ function login() {
         dataType: 'json',
         success:function(response) {
           if(response.success == true) {
-            $('button#login').html('Sign In').attr('disabled',false);
             location.href = site_url + 'profile';
           } else {
             $('button#login').html('Sign In').attr('disabled',false);
@@ -163,6 +161,91 @@ function recoverviaphonestep3() {
       }
     });
   });
+}
+
+function updateprofile($id) {
+  var id = $id;
+  var form = $('form').serialize();
+  $('#update').html('Please Wait').attr('disabled',true);
+  $.ajax({
+    type: 'POST',
+    url: site_url + 'execute/memberupdateprofile/'+id,
+    data: form,
+    dataType: 'json',
+    cache: false,
+    success:function(response) {
+      if(response.success == true) {
+        $('#update').html('Save').attr('disabled',false);
+        success(response.message);
+      } else {
+        $('#update').html('Save').attr('disabled',false);
+        $.each(response.messages, function(key,value){
+          var element = $('#' + key);
+          element.closest('div.form-group')
+          .find('.label-danger').remove();
+          element.after(value);
+        });
+      }
+    }
+  });
+}
+
+function changepassword($id) {
+  var id = $id;
+  var form = $('form').serialize();
+  $('#update').html('Please Wait').attr('disabled',true);
+  $.ajax({
+    type: 'POST',
+    url: site_url + 'execute/memberchangepassword/'+id,
+    data: form,
+    dataType: 'json',
+    cache: false,
+    success:function(response) {
+      if(response.success == true) {
+        $('#update').html('Save').attr('disabled',false);
+        success(response.message);
+      } else {
+        $('#update').html('Save').attr('disabled',false);
+        $.each(response.messages, function(key,value){
+          var element = $('#' + key);
+          element.closest('div.form-group')
+          .find('.label-danger').remove();
+          element.after(value);
+        });
+      }
+    }
+  });
+}
+
+function memberaddcontact() {
+  $('#addcontact').click(function(e){
+    e.preventDefault();
+    var button = $('#addcontact');
+    var form = $('form').serialize();
+    button.html('Please Wait').attr('disabled',true);
+    $.ajax({
+      type: 'POST',
+      url: site_url + 'execute/addcontact',
+      data: form,
+      cache: false,
+      dataType: 'json',
+      success:function(response){
+        if(response.success == true) {
+          button.html('Add').attr('disabled',false);
+          success(response.message);
+        } else {
+          button.html('Add').attr('disabled',false);
+          $.each(response.messages, function(key,value){
+            var element = $('#' + key);
+            element.closest('div.form-group')
+            .find('.label-danger').remove();
+            element.after(value);
+          });
+        }
+      }
+    }); 
+  });
+  
 }
 
 
@@ -354,6 +437,32 @@ function success(message) {
   }); 
 }
 
+function showcontacts() {
+  $.ajax({
+    type: 'POST',
+    url: site_url + 'show-contacts',
+    cache: false,
+    success:function(data) {
+      $('#show').html(data);
+    }
+  });
+}
+
+function blocklisting($id) {
+  var id = $id;
+  $.ajax({
+    type: 'POST',
+    url: site_url + 'execute/blocklisting/'+id,
+    cache:false,
+    dataType: 'json',
+    success:function(response) {
+      if(response.success == true) {
+        success(response.message);
+        showcontacts();
+      }
+    }
+  })
+}
 
 recoverviaphonestep1();
 recoverviaphonestep2();
@@ -364,6 +473,9 @@ recoverviaemailstep1();
 recoverviaemailstep2();
 recoverviaemailstep3();
 resendviaemail();
+
+memberaddcontact();
+showcontacts();
 
 login();
 register();

@@ -21,6 +21,7 @@ public function createuser() {
     $validator = array('success' => false, 'messages'=> array());
     $this->validate('fullname','Fullname',$this->fullname);
     $this->validate('email','Email',$this->email);
+    $this->validate('contact','contact',$this->contact);
     $this->validate('username','Username',$this->eusername);
     $this->validate('password','password',$this->password);
     $this->validate('cpassword','Confirm password',$this->cpassword);

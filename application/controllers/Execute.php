@@ -19,7 +19,7 @@ class Execute extends CI_Controller {
 }
 
 public function recoverviaphonestep1() {
-   $validator = array('success' => false, 'messages'=> array());
+    $validator = array('success' => false, 'messages'=> array());
     $this->validate('contact','contact',$this->contact);
     $this->validate('username','username',$this->username);
     $this->form_validation->set_error_delimiters('<label class="label label-danger">','</label>');
@@ -207,6 +207,81 @@ public function resendsecuritycodeviaphone() {
     echo json_encode(array('success' => true,'page' => 'recovery' ,'message'=>'We resent a security code to your number '.$number));
     $validator['success'] = true;
 
+}
+
+public function memberupdateprofile($id) {
+    $validator = array('success' => false, 'messages'=> array());
+    $this->validate('fullname','fullname',$this->fullname);
+    $this->validate('contact','contact',$this->contact);
+    $this->form_validation->set_error_delimiters('<label class="label label-danger">','</label>');
+    if($this->form_validation->run() == TRUE) {
+    $data = array( 'id' => $id, 'fullname' => $this->post('fullname'), 'contact' => $this->post('contact'));
+    $query = $this->model->updateprofile($data);
+      if($query) {
+        echo json_encode(array('success' => true, 'message' => 'Successfully updated'));
+      }
+    } else {
+      foreach ($_POST as $key => $value) {
+        $validator['messages'][$key] = form_error($key);
+        $validator['success'] = false;
+      }
+    echo json_encode($validator);
+    }
+}
+
+public function memberchangepassword($id) {
+    $validator = array('success' => false, 'messages'=> array());
+    $this->validate('password','password',$this->password);
+    $this->validate('cpassword','confirm password',$this->cpassword);
+    $this->form_validation->set_error_delimiters('<label class="label label-danger">','</label>');
+    if($this->form_validation->run() == TRUE) {
+    $password = password_hash($this->post('password'),PASSWORD_DEFAULT);  
+    $data = array( 'id' => $id, 'password' => $password);
+    $query = $this->model->changepassword($data);
+      if($query) {
+        echo json_encode(array('success' => true, 'message' => 'Password has been changed.'));
+      }
+    } else {
+      foreach ($_POST as $key => $value) {
+        $validator['messages'][$key] = form_error($key);
+        $validator['success'] = false;
+      }
+    echo json_encode($validator);
+    }
+}
+
+public function addcontact() {
+    $validator = array('success' => false, 'messages'=> array());
+    $this->validate('fullname','full name',$this->fullname);
+    $this->validate('contact','contact',$this->contact);
+    $this->form_validation->set_error_delimiters('<label class="label label-danger">','</label>');
+    if($this->form_validation->run() == TRUE) {
+    $id = $this->session->userdata('session_id');
+
+    $data = array(
+      'userid'   => $id, 
+      'fullname'  => $this->post('fullname'),
+      'contact'   => $this->post('contact'),
+      'blocklist' => 1
+      );
+    
+    $query = $this->model->AddContact($data);
+      if($query) {
+        echo json_encode(array('success' => true, 'message' => $data['fullname'].' has been added to your list.'));
+      }
+    } else {
+      foreach ($_POST as $key => $value) {
+        $validator['messages'][$key] = form_error($key);
+        $validator['success'] = false;
+      }
+    echo json_encode($validator);
+    }
+}
+
+
+public function blocklisting($id) {
+  $result = $this->model->BlockListing($id);
+  $query  = $this->model->ShowMyContactById($id);
 }
 
 public function logout() {

@@ -1,7 +1,7 @@
 <?php 
 $role = $this->session->userdata('role');
 foreach($results as $row) {
-$data = array('fullname' => $row->fullname,'email' => $row->email,'contact' => $row->contact, 'date' => $row->date);
+$data = array('id' => $row->id,'fullname' => $row->fullname,'email' => $row->email,'contact' => $row->contact, 'date' => $row->date);
 }
 ?>
 <div class="sidebar-nav">
@@ -50,12 +50,11 @@ $data = array('fullname' => $row->fullname,'email' => $row->email,'contact' => $
     </div>
 <div class="main-content">
 <!-- Start -->
-<form method="POST" name="FormChangePassword">
-    <button type="submit" ng-disabled="!FormChangePassword.$valid" class="btn btn-primary">Save</button>
-    <a href="<?=site_url('compose')?>" class="btn">Cancel</a>
+<form method="POST" name="FormChangePassword" novalidate>
+    <button type="submit" id="update" onclick="changepassword('<?php echo $data['id']?>')" ng-disabled="!FormChangePassword.$valid" class="btn btn-primary">Save</button>
     <hr>
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#home" data-toggle="tab">Profile</a></li>
+        <li class="active"><a href="#" data-toggle="tab">Change Password</a></li>
     </ul>
     <div class="row">
         <div class="col-md-4">
@@ -74,7 +73,7 @@ $data = array('fullname' => $row->fullname,'email' => $row->email,'contact' => $
                 </div>
                 
                 <div class="form-group">
-                    <label>Password</label>
+                    <label>Confirm Password</label>
                     <input type="password" class="form-control" name="cpassword" id="cpassword" ng-model="cpassword" ng-minlength="6" ng-maxlength="30" password-verify="{{password}}">
                     <div ng-messages="FormChangePassword.cpassword.$error" ng-if="FormChangePassword.cpassword.$dirty">
                         <span ng-message="passwordVerify" class="label label-danger">Password not match!</span>
