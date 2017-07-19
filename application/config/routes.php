@@ -74,6 +74,8 @@ $route['email-change-password']   = 'account/RecoverViaEmailChangePassword';
 
 #################################################################
 $route['profile']   = 'account/members/Profile';
+$route['change-password']   = 'account/members/ChangePassword';
+$route['add-contact']   = 'account/members/AddContact';
 #################################################################
 
 

@@ -29,8 +29,8 @@ $data = array('fullname' => $row->fullname,'email' => $row->email,'contact' => $
 </li>
 <li>
     <ul class="account-menu nav nav-list collapse in">
-        <li class="active"><a href="<?=site_url('profile')?>"><span class="fa fa-caret-right"></span> Profile</a></li>
-        <li><a href="<?=site_url('add-contact')?>"><span class="fa fa-caret-right"></span> Add Contact</a></li>
+        <li><a href="<?=site_url('profile')?>"><span class="fa fa-caret-right"></span> Profile</a></li>
+        <li class="active"><a href="<?=site_url('add-contact')?>"><span class="fa fa-caret-right"></span> Add Contact</a></li>
         <li><a href="<?=site_url('change-password')?>"><span class="fa fa-caret-right"></span> Change Password</a></li>
         <li><a href="<?=site_url('execute/logout')?>"><span class="fa fa-caret-right"></span> Sign Out</a></li>
     </ul>
@@ -42,20 +42,20 @@ $data = array('fullname' => $row->fullname,'email' => $row->email,'contact' => $
 
 <div class="content">
     <div class="header">
-        <h1 class="page-title">Profile</h1>
+        <h1 class="page-title">Add Contact</h1>
         <ul class="breadcrumb">
             <li>Account</li>
-            <li class="active"><a href="<?= site_url('profile')?>"> Profile</a></li>
+            <li class="active"><a href="<?= site_url('add-contact')?>"> Add Contact</a></li>
         </ul>
     </div>
 <div class="main-content">
 <!-- Start -->
-<form method="POST" name="FormProfileUpdate">
-    <button type="submit" ng-disabled="!FormProfileUpdate.$valid" class="btn btn-primary">Save</button>
+<form method="POST" name="FormAddContact">
+    <button type="submit" ng-disabled="!FormAddContact.$valid" class="btn btn-primary">Add</button>
     <a href="<?=site_url('compose')?>" class="btn">Cancel</a>
     <hr>
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#" data-toggle="tab">Profile</a></li>
+        <li class="active"><a href="#" data-toggle="tab">Add Contact</a></li>
     </ul>
     <div class="row">
         <div class="col-md-4">
@@ -65,32 +65,21 @@ $data = array('fullname' => $row->fullname,'email' => $row->email,'contact' => $
                 <div class="form-group">
                     <label>Full Name</label>
                     <input type="text" ng-model="fullname" name="fullname" id="fullname" class="form-control" ng-pattern="/^(.*?[a-zA-Z]){2,}$/" required>
-            <div ng-messages="FormProfileUpdate.fullname.$error" ng-if="FormProfileUpdate.fullname.$dirty">
-              <span ng-message="required" class="label label-danger">Name is required</span>
-              <span ng-message="pattern" class="label label-danger">Name is incomplete</span>
-            </div>
+                    <div ng-messages="FormAddContact.fullname.$error" ng-if="FormAddContact.fullname.$dirty">
+                        <span ng-message="required" class="label label-danger">Name is required</span>
+                        <span ng-message="pattern" class="label label-danger">Name is incomplete</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Contact</label>
                     <input type="text" class="form-control" name="contact" id="contact" ng-model="contact" id="contact" ng-pattern="/^(.*?[0-9]){10,}$/" ng-maxlength="10"required>
-                    <div ng-messages="FormProfileUpdate.contact.$error" ng-if="FormProfileUpdate.contact.$dirty">
+                    <div ng-messages="FormAddContact.contact.$error" ng-if="FormAddContact.contact.$dirty">
                         <span ng-message="required" class="label label-danger">Contact is required</span>
                         <span ng-message="maxlength" class="label label-danger">Please type 10 digits of your number</span>
                         <span ng-message="pattern" class="label label-danger">number only</span>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="text" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" class="form-control" ng-model="email" name="email" required>
-                    <div ng-messages="FormProfileUpdate.email.$error" ng-if="FormProfileUpdate.email.$dirty">
-                        <span ng-message="pattern" class="label label-danger">Please enter a valid email address.</span>
-                        <span ng-message="required" class="label label-danger">Email Address is required.</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Membership date</label>
-                    <p class="form-control"> <?php echo $data['date']?></p>
-                </div>
+               
             </div>
         </div>
     </div>
@@ -98,15 +87,10 @@ $data = array('fullname' => $row->fullname,'email' => $row->email,'contact' => $
 
 <!-- End -->
 </div>
-<?php		
-$this->load->view('components/footer');
-?>
+<?php $this->load->view('components/footer');?>
 <script type="text/javascript">
     var app = angular.module('app', ['ngMessages']);
-    app.controller('MyCtrl',function($scope){
-        $scope.fullname = '<?php echo$data['fullname']?>';
-        $scope.contact  = '<?php echo$data['contact']?>';
-        $scope.email    = '<?php echo$data['email']?>';
-    });
+    app.controller('MyCtrl',function($scope){});
 </script>
+
 
