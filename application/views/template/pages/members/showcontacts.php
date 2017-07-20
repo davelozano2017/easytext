@@ -7,7 +7,12 @@
     <th style="text-align:center">Action</th>
 </tr>
 </thead>
+
 <?php 
+if(count($mycontacts) == 0) {
+    echo '<td colspan=4 class="text-center alert alert-danger">No record found.</td>';
+}
+
 $i = 0;
 foreach($mycontacts as $row):
 $block = $row->blocklist;

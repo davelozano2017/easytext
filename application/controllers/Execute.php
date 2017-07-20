@@ -9,6 +9,7 @@ class Execute extends CI_Controller {
     $this->load->library('phpmailer');
     $this->fullname  = 'required|trim|min_length[4]|max_length[50]|xss_clean';
     $this->contact   = 'required|trim|xss_clean|regex_match[/^(.*?[0-9]){10,}$/]|min_length[10]|max_length[10]';
+    $this->contacts  = 'required|trim|xss_clean';
     $this->securityc = 'required|trim|xss_clean|regex_match[/^(.*?[0-9]){6,}$/]|min_length[6]|max_length[6]';
     $this->email     = 'required|trim|is_unique[et_accounts_tbl.email]|valid_email|xss_clean';
     $this->emailv    = 'required|trim|valid_email|regex_match[/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/]|xss_clean';
@@ -16,6 +17,7 @@ class Execute extends CI_Controller {
     $this->username  = 'required|trim|min_length[6]|max_length[30]|xss_clean';
     $this->password  = 'required|trim|min_length[6]|max_length[30]|xss_clean';
     $this->cpassword = 'required|trim|min_length[6]|max_length[30]|matches[password]|xss_clean';
+    $this->message   = 'required|trim|xss_clean';
 }
 
 public function recoverviaphonestep1() {
@@ -285,9 +287,65 @@ function removecontact($id) {
   }
 }
 
+public function editcontactbyid($id) {
+    $validator = array('success' => false, 'messages'=> array());
+    $this->validate('fullname','full name',$this->fullname);
+    $this->validate('contact','contact',$this->contact);
+    $this->form_validation->set_error_delimiters('<label class="label label-danger">','</label>');
+    if($this->form_validation->run() == TRUE) {
+    $userid = $this->session->userdata('session_id');
+    $data = array(
+      'userid' => $userid,
+      'id'   => $id, 
+      'fullname'  => $this->post('fullname'),
+      'contact'   => $this->post('contact')
+      );
+    
+    $query = $this->model->UpdateContactById($data);
+    } else {
+      foreach ($_POST as $key => $value) {
+        $validator['messages'][$key] = form_error($key);
+        $validator['success'] = false;
+      }
+    echo json_encode($validator);
+    }
+}
 public function blocklisting($id) {
   $result = $this->model->BlockListing($id);
   $query  = $this->model->ShowMyContactById($id);
+}
+
+public function sendmessage() {
+    $contact = $this->post('contact');
+    $count = count($contact);
+    if($count == 0) {
+    echo json_encode(array('success' => false, 'message' => 'Please select atleast one (1) reciever.'));
+  } else {
+    $validator = array('success' => false, 'messages'=> array());
+    $this->validate('message','message',$this->message);
+    $this->form_validation->set_error_delimiters('<label class="label label-danger">','</label>');
+      if($this->form_validation->run() == TRUE) {
+        $message = $this->post('message');
+        foreach($contact as $key => $value) {
+          $smsGateway = new SmsGateway('lozanojohndavid@gmail.com', '12345123');
+          $deviceID = 52335;
+          $number = '+63'.$contact[$key];
+          $message = $message;
+          $smsGateway->sendMessageToNumber($number, $message, $deviceID);
+        }
+          echo json_encode(array('success' => true, 'message' => 'Message has been sent!','receivers' => $count));
+      } else {
+        foreach ($_POST as $key => $value) {
+          $validator['messages'][$key] = form_error($key);
+          $validator['success'] = false;
+      }
+      echo json_encode($validator);
+    }
+  }
+
+
+
+
 }
 
 public function logout() {

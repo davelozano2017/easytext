@@ -13,10 +13,11 @@ $data = array('id' => $row->id,'fullname' => $row->fullname,'email' => $row->ema
     </li>
     
     <li>
-        <ul class="dashboard-menu nav nav-list collapse">
-            <li><a href="<?=site_url('compose')?>"><span class="fa fa-caret-right"></span> Compose</a></li>
+        <ul class="dashboard-menu nav nav-list collapse in">
+            <li class="active"><a href="<?=site_url('compose')?>"><span class="fa fa-caret-right"></span> Compose</a></li>
         </ul>
     </li>
+
 
     <li data-popover="true">
         <a href="#" data-target=".inbox-menu" class="nav-header collapsed" data-toggle="collapse">
@@ -38,8 +39,8 @@ $data = array('id' => $row->id,'fullname' => $row->fullname,'email' => $row->ema
     </a>
 </li>
 <li>
-    <ul class="account-menu nav nav-list collapse in">
-        <li class="active"><a href="<?=site_url('profile')?>"><span class="fa fa-caret-right"></span> Profile</a></li>
+    <ul class="account-menu nav nav-list collapse">
+        <li><a href="<?=site_url('profile')?>"><span class="fa fa-caret-right"></span> Profile</a></li>
         <li><a href="<?=site_url('add-contact')?>"><span class="fa fa-caret-right"></span> Add Contact</a></li>
         <li><a href="<?=site_url('change-password')?>"><span class="fa fa-caret-right"></span> Change Password</a></li>
         <li><a href="<?=site_url('execute/logout')?>"><span class="fa fa-caret-right"></span> Sign Out</a></li>
@@ -52,51 +53,44 @@ $data = array('id' => $row->id,'fullname' => $row->fullname,'email' => $row->ema
 
 <div class="content">
     <div class="header">
-        <h1 class="page-title">Profile</h1>
+        <h1 class="page-title">Compose</h1>
         <ul class="breadcrumb">
-            <li>Account</li>
-            <li class="active"><a href="<?= site_url('profile')?>"> Profile</a></li>
+            <li>Dashboard</li>
+            <li class="active"><a href="<?= site_url('compose')?>"> Compose</a></li>
         </ul>
     </div>
 <div class="main-content">
 <!-- Start -->
-<form method="POST" name="FormProfileUpdate" novalidate>
-    <button type="submit" id="update" onclick="updateprofile('<?php echo $data['id']?>')" ng-disabled="!FormProfileUpdate.$valid" class="btn btn-primary">Save</button>
+<form method="POST" name="FormMessageSend" novalidate>
+    <button type="submit" id="send" ng-disabled="!FormMessageSend.$valid" class="btn btn-primary">Send</button>
     <hr>
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#" data-toggle="tab">Profile</a></li>
+        <li class="active"><a href="#compose" data-toggle="tab">Compose now</a></li>
     </ul>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12">
             <br>
             <div id="myTabContent" class="tab-content">
-            <div class="tab-pane active in" id="home">
+            <div class="tab-pane active in" id="compose">
                 <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" ng-model="fullname" name="fullname" id="fullname" class="form-control" ng-pattern="/^(.*?[a-zA-Z]){2,}$/" required>
-            <div ng-messages="FormProfileUpdate.fullname.$error" ng-if="FormProfileUpdate.fullname.$dirty">
-              <span ng-message="required" class="label label-danger">Name is required</span>
-              <span ng-message="pattern" class="label label-danger">Name is incomplete</span>
-            </div>
-                </div>
-                <div class="form-group">
-                    <label>Contact</label>
-                    <input type="text" class="form-control" name="contact" id="contact" ng-model="contact" id="contact" ng-pattern="/^(.*?[0-9]){10,}$/" ng-maxlength="10"required>
-                    <div ng-messages="FormProfileUpdate.contact.$error" ng-if="FormProfileUpdate.contact.$dirty">
+                    <label>Send to</label>
+                    <select style="width:100%" multiple class="contact_multiple form-control" id="contact" ng-model="contact" name="contact[]" required>
+                        <?php foreach($mycontactbyuserid as $r): ?>
+                            <option value="<?php echo $r->contact?>"><?php echo $r->fullname?></option>
+                        <?php endforeach?>
+                    </select>
+                    <div ng-messages="FormMessageSend.contact.$error" ng-if="FormMessageSend.contact.$dirty">
                         <span ng-message="required" class="label label-danger">Contact is required</span>
-                        <span ng-message="maxlength" class="label label-danger">Please type 10 digits of your number</span>
-                        <span ng-message="pattern" class="label label-danger">number only</span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
-                    <p class="form-control"> <?php echo $data['email']?></p>
+                    <label>Message</label>
+                    <textarea style="resize:none;height:70px" class="form-control" name="message" id="message" ng-model="message" required></textarea>
+                    <div ng-messages="FormMessageSend.message.$error" ng-if="FormMessageSend.message.$dirty">
+                        <span ng-message="required" class="label label-danger">Message is required</span>
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label>Membership date</label>
-                    <p class="form-control"> <?php echo $data['date']?></p>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -109,9 +103,14 @@ $this->load->view('components/footer');
 ?>
 <script type="text/javascript">
     var app = angular.module('app', ['ngMessages']);
-    app.controller('MyCtrl',function($scope){
-        $scope.fullname = '<?php echo$data['fullname']?>';
-        $scope.contact  = '<?php echo$data['contact']?>';
-    });
+    app.controller('MyCtrl',function($scope){});
+
+    $(document).ready(function() {
+        $(".contact_multiple").select2({
+          maximumSelectionLength: 20,
+          placeholder: "With Max Selection limit 20",
+          allowClear: true
+        });
+      });
 </script>
 

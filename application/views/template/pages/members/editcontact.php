@@ -5,7 +5,17 @@ $data = array('id' => $row->id, 'fullname' => $row->fullname, 'contact' => $row-
 ?>
 <div class="sidebar-nav">
 <ul>
-    <li><a href="<?=site_url('compose')?>" class="nav-header"><i class="fa fa-fw fa-pencil"></i>Compose</a></li>
+    <li data-popover="true">
+        <a href="#" data-target=".dashboard-menu" class="nav-header collapsed" data-toggle="collapse">
+            <i class="fa fa-fw fa-dashboard"></i> Dashboard<i class="fa fa-collapse"></i>
+        </a>
+    </li>
+    
+    <li>
+        <ul class="dashboard-menu nav nav-list collapse">
+            <li><a href="<?=site_url('compose')?>"><span class="fa fa-caret-right"></span> Compose</a></li>
+        </ul>
+    </li>
 
     <li data-popover="true">
         <a href="#" data-target=".inbox-menu" class="nav-header collapsed" data-toggle="collapse">
@@ -51,7 +61,7 @@ $data = array('id' => $row->id, 'fullname' => $row->fullname, 'contact' => $row-
 <div class="main-content">
 <!-- Start -->
 <form method="POST" name="FormEditContact" novalidate>
-    <button type="submit" id="editcontact" ng-disabled="!FormEditContact.$valid" class="btn btn-primary">Save Changes</button>
+    <button type="submit" id="editcontact" onclick="membereditcontact('<?php echo $row->id?>')" ng-disabled="!FormEditContact.$valid" class="btn btn-primary">Save Changes</button>
     <a href="<?=site_url('my-contacts')?>" class="btn">Back</a>
     <hr>
            

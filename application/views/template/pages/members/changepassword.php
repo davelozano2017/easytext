@@ -6,7 +6,17 @@ $data = array('id' => $row->id,'fullname' => $row->fullname,'email' => $row->ema
 ?>
 <div class="sidebar-nav">
 <ul>
-    <li><a href="<?=site_url('compose')?>" class="nav-header"><i class="fa fa-fw fa-pencil"></i>Compose</a></li>
+    <li data-popover="true">
+        <a href="#" data-target=".dashboard-menu" class="nav-header collapsed" data-toggle="collapse">
+            <i class="fa fa-fw fa-dashboard"></i> Dashboard<i class="fa fa-collapse"></i>
+        </a>
+    </li>
+    
+    <li>
+        <ul class="dashboard-menu nav nav-list collapse">
+            <li><a href="<?=site_url('compose')?>"><span class="fa fa-caret-right"></span> Compose</a></li>
+        </ul>
+    </li>
 
     <li data-popover="true">
         <a href="#" data-target=".inbox-menu" class="nav-header collapsed" data-toggle="collapse">

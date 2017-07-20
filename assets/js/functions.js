@@ -233,7 +233,7 @@ function memberaddcontact() {
         if(response.success == true) {
           button.html('Add').attr('disabled',false);
           success(response.message);
-        } else if(response.success == false) {
+        } else if(response.success == 'false1') {
           button.html('Add').attr('disabled',false);
           error(response.message);
         } else {
@@ -511,6 +511,70 @@ function remove_contact(id) {
   });
 }
 
+function membereditcontact($id) {
+  var id = $id;
+  var button = $('#editcontact');
+  var form = $('form').serialize();
+  button.html('Please Wait').attr('disabled',true);
+  $.ajax({
+    type: 'POST',
+    url: site_url + 'execute/editcontactbyid/'+id,
+    data: form,
+    cache: false,
+    dataType: 'json',
+    success:function(response) {
+      if(response.success == true) {
+          success(response.message);
+          button.html('Save Changes').attr('disabled',false);
+      } else if(response.success == false) {
+          error(response.message);
+          button.html('Save Changes').attr('disabled',false);
+      } else {
+          button.html('Save Changes').attr('disabled',false);
+          $.each(response.messages, function(key,value){
+            var element = $('#' + key);
+            element.closest('div.form-group')
+            .find('.label-danger').remove();
+            element.after(value);
+          });
+      }
+    }
+  });
+
+}
+
+function sendmessage() {
+  $(document).ready(function(){
+    $('#send').click(function(e){
+      e.preventDefault();
+      var button = $('#send');
+      var form = $('form').serializeArray();
+      button.html('Please Wait').attr('disabled',true);
+      $.ajax({
+        type: 'POST',
+        url: site_url + 'execute/sendmessage',
+        data: form,
+        dataType: 'json',
+        cache: false,
+        success:function(response) {
+          if(response.success == true) {
+            success(response.message);
+            button.html('Send').attr('disabled',false);
+          } else {
+            button.html('Send').attr('disabled',false);
+            $.each(response.messages, function(key,value){
+              var element = $('#' + key);
+              element.closest('div.form-group')
+              .find('.label-danger').remove();
+              element.after(value);
+            });
+          }
+        }
+      }); 
+    })
+  });
+}
+
 recoverviaphonestep1();
 recoverviaphonestep2();
 recoverviaphonestep3();
@@ -523,6 +587,7 @@ resendviaemail();
 
 memberaddcontact();
 showcontacts();
+sendmessage();
 
 login();
 register();
