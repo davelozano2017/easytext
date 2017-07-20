@@ -266,9 +266,6 @@ public function addcontact() {
       );
     
     $query = $this->model->AddContact($data);
-      if($query) {
-        echo json_encode(array('success' => true, 'message' => $data['fullname'].' has been added to your list.'));
-      }
     } else {
       foreach ($_POST as $key => $value) {
         $validator['messages'][$key] = form_error($key);
@@ -278,6 +275,15 @@ public function addcontact() {
     }
 }
 
+
+function removecontact($id) {
+  $query  = $this->model->ShowMyContactById($id);
+  if($query) {
+    $result = $this->model->RemoveContactById($id);
+    $fullname = $query->fullname;
+    echo json_encode(array('success' => true, 'message' => $fullname.' has been remove to your contacts.'));
+  }
+}
 
 public function blocklisting($id) {
   $result = $this->model->BlockListing($id);

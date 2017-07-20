@@ -23,12 +23,12 @@ $blocklist = $block == 0 ? '<i class="fa fa-star"></i>' : '<i class="fa fa-star-
         <button id="blocklist" onclick="blocklisting('<?php echo$row->id?>')" class="btn btn-primary">
             <?php echo$blocklist?>
         </button>
-        <button id="blocklist" onclick="blocklisting('<?php echo$row->id?>')" class="btn btn-danger">
+        <button id="delete" onclick="delete_contact('<?php echo$row->id?>')" class="btn btn-danger">
             <i class="fa fa-trash"></i>
         </button>
-        <button id="blocklist" onclick="blocklisting('<?php echo$row->id?>')" class="btn btn-info">
+        <a href="<?= site_url('contact/edit/'.$row->id)?>" id="edit"  class="btn btn-info">
             <i class="fa fa-pencil"></i>
-        </button>
+        </a>
     </td>
 </tr>
 </tbody>

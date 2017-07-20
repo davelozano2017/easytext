@@ -78,6 +78,7 @@ $route['change-password']   = 'account/members/ChangePassword';
 $route['add-contact']   = 'account/members/AddContact';
 $route['my-contacts']   = 'account/members/MyContacts';
 $route['show-contacts']   = 'account/members/ShowContacts';
+$route['contact/edit/(:num)']   = 'account/members/EditContact/edit/$1';
 #################################################################
 
 

@@ -96,13 +96,23 @@ class model extends CI_Model {
     return $result->result();
   }
 
+  public function GetUserDataById($id) {
+    $result = $this->db->get_where($this->contacts,array('id' => $id));
+    return $result->result();
+  }
+
   public function AddContact($data) {
-    $result = $this->db->insert($this->contacts,$data);
-    if($result) { 
-      return $result; 
+    $check = $this->db->select('*')->from($this->contacts)->where(['contact' => $data['contact']])->get();
+    if($check->num_rows() > 0) {
+          echo json_encode(array('success' => false, 'message' => 'This number '."+63".$data['contact'].' is already exist in your list.'));
+    } else {
+      $result = $this->db->insert($this->contacts,$data);
+      if($result) {
+          echo json_encode(array('success' => true, 'message' => $data['fullname'].' has been added to your list.'));
+          return $result;
+      }
     }
   }
-  
 
   public function ShowAllMyContacts($id) {
     $result = $this->db->select(
@@ -121,6 +131,11 @@ class model extends CI_Model {
 		$this->db->from($this->contacts)->where('id', $id);
 		return $this->db->get()->row();
 	}
+
+  public function RemoveContactById($id) {
+      $result = $this->db->where(['id' => $id])->delete($this->contacts);
+      return $result;
+  }
 
   public function BlockListing($id) {
 		$check = $this->db->select('*')->from($this->contacts)->where(['id' => $id])->get()->row();

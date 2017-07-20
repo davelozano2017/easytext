@@ -233,6 +233,9 @@ function memberaddcontact() {
         if(response.success == true) {
           button.html('Add').attr('disabled',false);
           success(response.message);
+        } else if(response.success == false) {
+          button.html('Add').attr('disabled',false);
+          error(response.message);
         } else {
           button.html('Add').attr('disabled',false);
           $.each(response.messages, function(key,value){
@@ -245,9 +248,7 @@ function memberaddcontact() {
       }
     }); 
   });
-  
 }
-
 
 function resendviaphone() {
   $('#resend').click(function(){
@@ -432,8 +433,10 @@ function success(message) {
         color:'#fff',
         message: message
       },
+       delay : 2000,
       'position'  :'top right',
       'outEffect' :'slideBottom'
+      
   }); 
 }
 
@@ -462,6 +465,50 @@ function blocklisting($id) {
       }
     }
   })
+}
+
+function delete_contact($id) {
+    var id = $id;
+    amarancondition(id);
+}
+
+function amarancondition(id){
+  $.amaran({
+  'theme'     :'colorful',
+  'content'   :{ bgcolor:'#336699', color:'#fff',
+  message: 'Are you sure you want to remove this contact? <br><br> <a id="yes'+id+'" class="btn btn-info" onclick="remove_contact('+id+')"> Yes</a> <a id="close'+id+'" class="btn btn-warning"> No</a>',
+  },
+  'position'  :'top right', 'outEffect' :'slideBottom','sticky' :true, 'closeOnClick'  :false
+  });
+  $('#close'+id).click(function(){
+     closenotify();
+  });
+  $('#yes'+id).click(function(){
+     closenotify();
+  })
+}
+
+function closenotify(){
+  $.amaran({
+    'theme'     :'colorful',  
+    message: '',
+    'delay' : 1,
+    'closeOnClick'  :true
+  });
+}
+
+function remove_contact(id) {
+  $.ajax({
+    type:'POST',
+    url: site_url + 'execute/removecontact/'+id,
+    dataType: 'json',
+    cache: false,
+    success:function(response) {
+      if(response.success == true) {
+        showcontacts();
+      }
+    }
+  });
 }
 
 recoverviaphonestep1();

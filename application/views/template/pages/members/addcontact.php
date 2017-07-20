@@ -67,7 +67,7 @@ $data = array('fullname' => $row->fullname,'email' => $row->email,'contact' => $
             
             <div class="form-group">
                 <label>Full Name</label>
-                <input type="text" ng-model="fullname" name="fullname" id="fullname" class="form-control" ng-pattern="/^(.*?[a-zA-Z]){2,}$/" required>
+                <input type="text" ng-model="fullname" name="fullname" id="fullname" class="form-control" ng-pattern="/^(.*?[a-zA-Z]){4,}$/" required>
                 <div ng-messages="FormAddContact.fullname.$error" ng-if="FormAddContact.fullname.$dirty">
                     <span ng-message="required" class="label label-danger">Name is required</span>
                     <span ng-message="pattern" class="label label-danger">Name is incomplete</span>
