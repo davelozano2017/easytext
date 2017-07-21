@@ -15,9 +15,6 @@ $data = array('fullname' => $row->fullname);
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="<?= site_url('assets/lib/bootstrap/css/bootstrap.min.css')?>">
     <link rel="stylesheet" type="text/css" href="<?= site_url('assets/lib/font-awesome/css/font-awesome.css')?>">
-
-    <script src="<?= site_url('assets/lib/jquery-1.11.1.min.js')?>" type="text/javascript"></script>
-
     <link rel="stylesheet" type="text/css" href="<?= site_url('assets/stylesheets/theme.css')?>">
     <link rel="stylesheet" type="text/css" href="<?= site_url('assets/stylesheets/custom.css')?>">
     <link rel="stylesheet" type="text/css" href="<?= site_url('assets/amaran/dist/css/amaran.min.css')?>">
