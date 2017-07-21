@@ -26,6 +26,7 @@ $data = array('id' => $row->id,'fullname' => $row->fullname,'email' => $row->ema
     
     <li>
         <ul class="inbox-menu nav nav-list collapse">
+            <li><a href="<?=site_url('messages')?>"><span class="fa fa-caret-right"></span> Messages</a></li>
             <li><a href="<?=site_url('drafts')?>"><span class="fa fa-caret-right"></span> Drafts</a></li>
             <li><a href="<?=site_url('archieve')?>"><span class="fa fa-caret-right"></span> Archieve</a></li>
             <li><a href="<?=site_url('important')?>"><span class="fa fa-caret-right"></span> Important</a></li>    
@@ -101,7 +102,7 @@ $data = array('id' => $row->id,'fullname' => $row->fullname,'email' => $row->ema
         </div>
     </div>
 </form>
-
+</div>
 <!-- End -->
 </div>
 <?php		

@@ -52,39 +52,42 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 //Costum Routes 
 
-#################################################################
-$route['login']     = 'account/Login';
-$route['register']  = 'account/Register';
+##################################################################################################
+$route['login']                     = 'account/Login';
+$route['register']                  = 'account/Register';
 $route['activate/account/(:num)']   = 'account/ActivateAccount/account/$1';
 
-$route['recover-choose-method']   = 'account/RecoverChooseMethod';
-#################################################################
+$route['recover-choose-method']     = 'account/RecoverChooseMethod';
+##################################################################################################
 
-#################################################################
-$route['recover-via-phone']   = 'account/RecoverViaPhone';
-$route['phone-security-code']   = 'account/RecoverViaPhoneInsertSecurityCode';
-$route['phone-change-password']   = 'account/RecoverViaPhoneChangePassword';
-#################################################################
+##################################################################################################
+$route['recover-via-phone']         = 'account/RecoverViaPhone';
+$route['phone-security-code']       = 'account/RecoverViaPhoneInsertSecurityCode';
+$route['phone-change-password']     = 'account/RecoverViaPhoneChangePassword';
+##################################################################################################
 
-#################################################################
-$route['email-security-code']   = 'account/RecoverViaEmailInsertSecurityCode';
-$route['recover-via-email']   = 'account/RecoverViaEmail';
-$route['email-change-password']   = 'account/RecoverViaEmailChangePassword';
-#################################################################
+##################################################################################################
+$route['email-security-code']       = 'account/RecoverViaEmailInsertSecurityCode';
+$route['recover-via-email']         = 'account/RecoverViaEmail';
+$route['email-change-password']     = 'account/RecoverViaEmailChangePassword';
+##################################################################################################
 
-#################################################################
-$route['profile']   = 'account/members/Profile';
-$route['change-password']   = 'account/members/ChangePassword';
-$route['add-contact']   = 'account/members/AddContact';
-$route['compose']   = 'account/members/Compose';
-$route['my-contacts']   = 'account/members/MyContacts';
-$route['show-contacts']   = 'account/members/ShowContacts';
-$route['contact/edit/(:num)']   = 'account/members/EditContact/edit/$1';
-#################################################################
+##################################################################################################
+$route['profile']                   = 'account/members/Profile';
+$route['change-password']           = 'account/members/ChangePassword';
+$route['add-contact']               = 'account/members/AddContact';
+$route['compose']                   = 'account/members/Compose';
+$route['my-contacts']               = 'account/members/MyContacts';
+$route['show-contacts']             = 'account/members/ShowContacts';
+$route['messages']                  = 'account/members/Messages';
+$route['archieve']                  = 'account/members/Archieve';
+$route['important']                 = 'account/members/Important';
+$route['view/message/(:num)']       = 'account/members/Messages/view/$1';
+$route['contact/edit/(:num)']       = 'account/members/EditContact/edit/$1';
+##################################################################################################
 
-
-//end
-
-$route['default_controller'] = 'Landing';
-$route['404_override'] = '';
-$route['translate_uri_dashes'] = TRUE;
+##################################################################################################
+$route['default_controller']        = 'Landing';
+$route['404_override']              = '';
+$route['translate_uri_dashes']      = TRUE;
+##################################################################################################

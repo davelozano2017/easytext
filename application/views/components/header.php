@@ -17,9 +17,12 @@
     <link rel="stylesheet" type="text/css" href="<?= site_url('assets/amaran/dist/css/animate.min.css')?>">
     <link rel="stylesheet" type="text/css" href="<?= site_url('assets/stylesheets/premium.css')?>">
     <link rel="stylesheet" type="text/css" href="<?= site_url('assets/select2/dist/css/select2.min.css')?>">
+    <link rel="stylesheet" type="text/css" href="<?= site_url('assets/stylesheets/custom.css')?>">
 
 </head>
-<body class="theme-blue" ng-app="validationApp" ng-controller="mainController">
+<body onload="Animate()" class="theme-blue" ng-app="validationApp" ng-controller="mainController">
+<div style="display:none;" id="AnimateHeader" class="animate-bottom">
+
     <style type="text/css">#line-chart {height:300px;width:800px;margin: 0px auto;margin-top: 1em;}.navbar-default .navbar-brand, .navbar-default .navbar-brand:hover {color: #fff;}</style>
     <div class="navbar navbar-default" role="navigation">
         <div class="navbar-header">
@@ -28,3 +31,7 @@
         </div>
       </div>
     </div>
+
+
+        <div id="loader"></div>
+<div style="display:none;" id="AnimateContent" class="animate-bottom">

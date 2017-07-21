@@ -1,8 +1,3 @@
-<?php 
-foreach($results as $row) {
-$data = array('fullname' => $row->fullname,'email' => $row->email,'contact' => $row->contact, 'date' => $row->date);
-}
-?>
 <div class="sidebar-nav">
 <ul>
     <li data-popover="true">
@@ -25,6 +20,7 @@ $data = array('fullname' => $row->fullname,'email' => $row->email,'contact' => $
     
     <li>
         <ul class="inbox-menu nav nav-list collapse">
+            <li><a href="<?=site_url('messages')?>"><span class="fa fa-caret-right"></span> Messages</a></li>
             <li><a href="<?=site_url('drafts')?>"><span class="fa fa-caret-right"></span> Drafts</a></li>
             <li><a href="<?=site_url('archieve')?>"><span class="fa fa-caret-right"></span> Archieve</a></li>
             <li><a href="<?=site_url('important')?>"><span class="fa fa-caret-right"></span> Important</a></li>    
@@ -83,7 +79,7 @@ $data = array('fullname' => $row->fullname,'email' => $row->email,'contact' => $
     </div>
   </div>
 </form>
-
+</div>
 <!-- End -->
 <?php $this->load->view('components/footer');?>
 <script type="text/javascript">

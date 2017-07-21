@@ -5,6 +5,7 @@
 
     public $accounts = 'et_accounts_tbl';
     public $contacts = 'et_contacts_tbl';
+    public $messages = 'et_messages_tbl';
 
     public function CreateUser($data) {
       return $this->db->insert($this->accounts,$data);
@@ -96,6 +97,73 @@
       return $result->result();
     }
 
+    public function GetMessagesById($id) {
+      $result = $this->db->select(
+        'et_accounts_tbl.id,et_contacts_tbl.userid,et_contacts_tbl.fullname,et_contacts_tbl.contact,
+        et_messages_tbl.id, et_messages_tbl.userid, et_messages_tbl.contact, et_messages_tbl.date,
+        et_messages_tbl.archieve,et_messages_tbl.important'
+        )
+      ->from('et_messages_tbl')
+      ->join('et_contacts_tbl', 'et_messages_tbl.userid = et_contacts_tbl.userid')
+      ->join('et_accounts_tbl', 'et_messages_tbl.contact = et_contacts_tbl.contact')
+      ->where(array(
+        'et_accounts_tbl.id' => $id, 'et_messages_tbl.userid' => $id,
+         'et_messages_tbl.archieve' => 0, 'et_messages_tbl.important' => 0
+      ))->get();
+      return $result->result();
+
+    }
+
+    public function GetArchieve($id) {
+      $result = $this->db->select(
+        'et_accounts_tbl.id,et_contacts_tbl.userid,et_contacts_tbl.fullname,et_contacts_tbl.contact,
+        et_messages_tbl.id, et_messages_tbl.userid, et_messages_tbl.contact, et_messages_tbl.date,
+        et_messages_tbl.archieve,et_messages_tbl.important'
+        )
+      ->from('et_messages_tbl')
+      ->join('et_contacts_tbl', 'et_messages_tbl.userid = et_contacts_tbl.userid')
+      ->join('et_accounts_tbl', 'et_messages_tbl.contact = et_contacts_tbl.contact')
+      ->where(array(
+        'et_accounts_tbl.id' => $id, 'et_messages_tbl.userid' => $id,
+         'et_messages_tbl.archieve' => 1, 'et_messages_tbl.important' => 0
+      ))->get();
+      return $result->result();
+
+    }
+
+    public function GetImportant($id) {
+      $result = $this->db->select(
+        'et_accounts_tbl.id,et_contacts_tbl.userid,et_contacts_tbl.fullname,et_contacts_tbl.contact,
+        et_messages_tbl.id, et_messages_tbl.userid, et_messages_tbl.contact, et_messages_tbl.date,
+        et_messages_tbl.archieve,et_messages_tbl.important'
+        )
+      ->from('et_messages_tbl')
+      ->join('et_contacts_tbl', 'et_messages_tbl.userid = et_contacts_tbl.userid')
+      ->join('et_accounts_tbl', 'et_messages_tbl.contact = et_contacts_tbl.contact')
+      ->where(array(
+        'et_accounts_tbl.id' => $id, 'et_messages_tbl.userid' => $id,
+         'et_messages_tbl.archieve' => 0, 'et_messages_tbl.important' => 1
+      ))->get();
+      return $result->result();
+
+    }
+
+    public function ViewMessage($id) {
+      $result = $this->db->select(
+        'et_messages_tbl.id, et_messages_tbl.userid, et_messages_tbl.contact, 
+         et_messages_tbl.message, et_messages_tbl.date, et_contacts_tbl.userid,
+         et_contacts_tbl.fullname, et_contacts_tbl.contact'
+      )
+      ->from('et_messages_tbl')->join('et_contacts_tbl', 'et_messages_tbl.contact = et_contacts_tbl.contact')
+      ->where(['et_messages_tbl.id' => $id])->get();
+      return $result->result();
+    }
+
+    public function ViewMessageById($id) {
+      $result = $this->db->get_where($this->messages,array('id'=>$id))->row();
+      return $result;
+    }
+
     public function GetUserDataById($id) {
       $result = $this->db->get_where($this->contacts,array('id' => $id));
       return $result->result();
@@ -176,6 +244,27 @@
     
     }
 
+    public function MoveToArchieveOrImportant($data) {
+      if($data['choose'] == 'Archieve') {
+        $result = $this->db->where(['id'=> $data['id']])
+        ->set(array('archieve' => 1))
+        ->update($this->messages);
+        echo json_encode(array('success' => true, 'message' => 'This message has been moved to arhieve page'));
+        return $result;
+      } else {
+        $result = $this->db->where(['id'=> $data['id']])
+        ->set(array('important' => 1))
+        ->update($this->messages);
+        echo json_encode(array('success' => true, 'message' => 'This message has been moved to important page'));
+        return $result;
+      }
+
+    }
+
+    public function SaveMessage($data) {
+      $result = $this->db->insert($this->messages,$data);
+      return $result;
+    }
 
     private function verify($password, $hash) {
       return password_verify($password, $hash);

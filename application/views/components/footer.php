@@ -12,7 +12,18 @@
     placeholder: 'Select Method',
     allowClear: true
     })
+    var myVar;
+    function Animate() {
+        myVar = setTimeout(showPage(), 3000);
+    }
+    function showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("AnimateHeader").style.display = "block";
+    document.getElementById("AnimateContent").style.display = "block";
+    }
 </script>
+
+
 </body>
 </html>
 

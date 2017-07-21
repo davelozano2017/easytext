@@ -5,6 +5,7 @@ class ExecuteCreateAccount extends CI_Controller {
 // Save user information from registration page
  function __construct() {
     parent::__construct();
+    date_default_timezone_set('Asia/Manila');
     $this->load->library('phpmailer');
     $this->fullname  = 'required|trim|min_length[4]|max_length[50]|xss_clean';
     $this->contact   = 'required|trim|xss_clean|regex_match[/^(.*?[0-9]){10,}$/]|min_length[10]|max_length[10]';

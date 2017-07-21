@@ -575,6 +575,38 @@ function sendmessage() {
   });
 }
 
+function moveto() {
+  $('#moveto').click(function(e){
+    e.preventDefault();
+    var button = $('#moveto');
+    button.html('Please Wait').attr('disabled',true);
+    var form = $('form').serialize();
+    $.ajax({
+      type: 'POST',
+      url: site_url + 'execute/moveto',
+      cache: false,
+      data: form,
+      dataType: 'json',
+      success:function(response) {
+        if(response.success == true) {
+          success(response.message);
+          setTimeout(function(){
+            location.href = site_url + 'messages';
+          },3000);
+        } else {
+          button.html('Go').attr('disabled',false);
+          $.each(response.messages, function(key,value){
+            var element = $('#' + key);
+            element.closest('div.form-group')
+            .find('.label-danger').remove();
+            element.after(value);
+          });
+        }
+      }
+    });
+  });
+}
+
 recoverviaphonestep1();
 recoverviaphonestep2();
 recoverviaphonestep3();
@@ -588,6 +620,7 @@ resendviaemail();
 memberaddcontact();
 showcontacts();
 sendmessage();
+moveto();
 
 login();
 register();

@@ -18,6 +18,7 @@ class Execute extends CI_Controller {
     $this->password  = 'required|trim|min_length[6]|max_length[30]|xss_clean';
     $this->cpassword = 'required|trim|min_length[6]|max_length[30]|matches[password]|xss_clean';
     $this->message   = 'required|trim|xss_clean';
+    $this->choose    = 'required|trim|xss_clean';
 }
 
 public function recoverviaphonestep1() {
@@ -315,6 +316,23 @@ public function blocklisting($id) {
   $query  = $this->model->ShowMyContactById($id);
 }
 
+public function moveto() {
+    $validator = array('success' => false, 'messages'=> array());
+    $this->validate('choose','select',$this->choose);
+    $this->form_validation->set_error_delimiters('<label class="label label-danger">','</label>');
+    if($this->form_validation->run() == TRUE) {
+    $data = array('id' => $this->post('id'), 'choose' => $this->post('choose'));
+    $query = $this->model->MoveToArchieveOrImportant($data);
+    } else {
+      foreach ($_POST as $key => $value) {
+        $validator['messages'][$key] = form_error($key);
+        $validator['success'] = false;
+      }
+    echo json_encode($validator);
+  }
+}
+
+
 public function sendmessage() {
     $contact = $this->post('contact');
     $count = count($contact);
@@ -325,15 +343,28 @@ public function sendmessage() {
     $this->validate('message','message',$this->message);
     $this->form_validation->set_error_delimiters('<label class="label label-danger">','</label>');
       if($this->form_validation->run() == TRUE) {
+        $id = $this->session->userdata('session_id');
         $message = $this->post('message');
+        $numbers = [];
+        $message_code = rand(111111,999999);
         foreach($contact as $key => $value) {
-          $smsGateway = new SmsGateway('lozanojohndavid@gmail.com', '12345123');
-          $deviceID = 52335;
-          $number = '+63'.$contact[$key];
-          $message = $message;
-          $smsGateway->sendMessageToNumber($number, $message, $deviceID);
+          $contacts = $contact[$key];
+          $numbers[] = "+63".$contact[$key];
+          $data = array(
+            'userid'=> $id, 'contact' => $contacts, 'message' => $message, 
+            'message_code' => $message_code, 'date' => date('F j, \ Y h:i A')
+            );
+          $this->model->SaveMessage($data);
         }
-          echo json_encode(array('success' => true, 'message' => 'Message has been sent!','receivers' => $count));
+        $smsGateway = new SmsGateway('lozanojohndavid@gmail.com', '12345123');
+        $deviceID = 52335;
+        $message = $message;
+        $smsGateway->sendMessageToNumber($numbers, $message, $deviceID);
+        echo json_encode(array(
+          'success' => true, 
+          'message' => 'Message has been sent.',
+          'sent to' => $numbers)
+          );
       } else {
         foreach ($_POST as $key => $value) {
           $validator['messages'][$key] = form_error($key);
@@ -342,9 +373,6 @@ public function sendmessage() {
       echo json_encode($validator);
     }
   }
-
-
-
 
 }
 

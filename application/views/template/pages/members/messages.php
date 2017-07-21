@@ -7,8 +7,8 @@
     </li>
     
     <li>
-        <ul class="dashboard-menu nav nav-list collapse in">
-            <li class="active"><a href="<?=site_url('compose')?>"><span class="fa fa-caret-right"></span> Compose</a></li>
+        <ul class="dashboard-menu nav nav-list collapse">
+            <li><a href="<?=site_url('compose')?>"><span class="fa fa-caret-right"></span> Compose</a></li>
         </ul>
     </li>
 
@@ -20,8 +20,8 @@
     </li>
     
     <li>
-        <ul class="inbox-menu nav nav-list collapse">
-            <li><a href="<?=site_url('messages')?>"><span class="fa fa-caret-right"></span> Messages</a></li>
+        <ul class="inbox-menu nav nav-list collapse in">
+            <li class="active"><a href="<?=site_url('messages')?>"><span class="fa fa-caret-right"></span> Messages</a></li>
             <li><a href="<?=site_url('drafts')?>"><span class="fa fa-caret-right"></span> Drafts</a></li>
             <li><a href="<?=site_url('archieve')?>"><span class="fa fa-caret-right"></span> Archieve</a></li>
             <li><a href="<?=site_url('important')?>"><span class="fa fa-caret-right"></span> Important</a></li>    
@@ -48,44 +48,57 @@
 
 <div class="content">
     <div class="header">
-        <h1 class="page-title">Compose</h1>
+        <h1 class="page-title">Messages</h1>
         <ul class="breadcrumb">
-            <li>Dashboard</li>
-            <li class="active"><a href="<?= site_url('compose')?>"> Compose</a></li>
+            <li>Inbox</li>
+            <li class="active"><a href="<?= site_url('messages')?>"> Messages</a></li>
         </ul>
-    </div>
+    </div>  
 <div class="main-content">
 <!-- Start -->
 <form method="POST" name="FormMessageSend" novalidate>
-    <button type="submit" id="send" ng-disabled="!FormMessageSend.$valid" class="btn btn-primary">Send</button>
-    <hr>
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#compose" data-toggle="tab">Compose now</a></li>
+        <li class="active"><a href="#compose" data-toggle="tab">Messages</a></li>
     </ul>
     <div class="row">
         <div class="col-md-12">
             <br>
             <div id="myTabContent" class="tab-content">
-            <div class="tab-pane active in" id="compose">
-                <div class="form-group">
-                    <label>Send to</label>
-                    <select style="width:100%" multiple class="contact_multiple form-control" id="contact" ng-model="contact" name="contact[]" required>
-                        <?php foreach($mycontactbyuserid as $r): ?>
-                            <option value="<?php echo $r->contact?>"><?php echo $r->fullname?></option>
-                        <?php endforeach?>
-                    </select>
-                    <div ng-messages="FormMessageSend.contact.$error" ng-if="FormMessageSend.contact.$dirty">
-                        <span ng-message="required" class="label label-danger">Contact is required</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Message</label>
-                    <textarea style="resize:none;height:70px" class="form-control" name="message" id="message" ng-model="message" required></textarea>
-                    <div ng-messages="FormMessageSend.message.$error" ng-if="FormMessageSend.message.$dirty">
-                        <span ng-message="required" class="label label-danger">Message is required</span>
-                    </div>
-                </div>
-                
+            <div class="tab-pane active in" id="Messages">
+
+                <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th style="text-align:center">Action</th>
+                </tr>
+                </thead>
+
+                <?php 
+                if(count($getmessages) == 0) {
+                    echo '<td colspan=4 class="text-center alert alert-danger">No record found.</td>';
+                }
+
+                $i = 0;
+                foreach($getmessages as $row):
+                ?>
+
+                <tbody>
+                <tr>
+                    <td style="width:1px"><?php echo ++$i?></td>
+                    <td><?php echo $row->fullname?></td>
+                    <td><?php echo $row->date?></td>
+                    <td style="text-align:center">
+                       <a href="<?=site_url('view/message/'.$row->id.'')?>" class="btn btn-primary">View</a> 
+                    </td>
+                </tr>
+                </tbody>
+                <?php endforeach;?>
+                </table>
+
+
             </div>
         </div>
     </div>
@@ -100,12 +113,6 @@ $this->load->view('components/footer');
     var app = angular.module('app', ['ngMessages']);
     app.controller('MyCtrl',function($scope){});
 
-    $(document).ready(function() {
-        $(".contact_multiple").select2({
-          maximumSelectionLength: 20,
-          placeholder: "With Max Selection limit 20",
-          allowClear: true
-        });
-      });
+    
 </script>
 
