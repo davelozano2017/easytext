@@ -15,6 +15,8 @@
     <link href="<?= site_url('assets/landing/vendor/font-awesome/css/font-awesome.min.css')?>" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="<?= site_url('assets/stylesheets/style.css')?>">
+
 
     <!-- Custom styles for this template -->
     <link href="<?= site_url('assets/landing/css/creative.min.css')?>" rel="stylesheet">
@@ -34,8 +36,16 @@
 
 </head>
 
-<body id="page-top">
 
+
+<body id="page-top">
+<div id="loader-wrapper">
+    <div id="loader"></div>
+
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+
+</div>
     <!-- Navigation -->
     <nav class="navbar fixed-top navbar-toggleable-md navbar-light" id="mainNav">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarExample" aria-controls="navbarExample" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +74,7 @@
             <div class="header-content-inner">
                 <h1 id="homeHeading">The newest online free text to all network in philippines!</h1>
                 <hr>
-                <p style="font-weight: bolder;">EASYTEXT can help you to send a free text message to all network <br>specially in case of emergency.</p>
+                <p style="font-weight: bolder;">EasyText can help you to send a free text message to all network <br>specially in case of emergency.</p>
                 <a style="border-radius:0" class="btn btn-primary btn-xl" href="#about">Find Out More</a>
             </div>
         </div>
@@ -77,7 +87,7 @@
                     <h2 class="section-heading text-white">Why EasyText?</h2>
 
                     <hr class="light">
-                    <p class="text-faded" style="text-align:justify">EasyText is a free online text message to all network in Philippines. It can help you a lot specially in case of emergency. If you want to text someone, but suddenly your balance is zero or your subscription was expired, then EASYTEXT will help you. There's no text limit. You can compose what you want and send it to your registered contacts.</p>
+                    <p class="text-faded" style="text-align:justify">EasyText is a online free text message to all network in Philippines. It can help you a lot specially in case of emergency. If you want to text someone, but suddenly your balance is zero or your subscription was expired, then Easytext will help you. There's no text limit. You can compose what you want and send it to your registered contacts.</p>
                     <a style="border-radius:0" class="btn btn-default btn-xl sr-button" href="#faq">Get Started!</a>
                 </div>
             </div>
@@ -105,15 +115,19 @@
                   <li>You can go to <a href="<?= site_url('login')?>">login page</a> then sign in your account.</li>
                 </ul>
 
-              <label>If ever I forgot my password, Can i retrieve my account?</label>
+            <label>Do i need to activate my account first before signing in?</label>
                 <ul>
-                  <li>Yes. You can go to  <a href="<?= site_url('recovery')?>">recovery page</a> then type your registered email and follow on-screen instructions.</li>
+                    <li>Yes.</li>
                 </ul>
 
-              <label>Do i need to activate my account first before signing in?</label>
+              <label>If ever I forgot my password, can i retrieve my account?</label>
+                <ul> Yes of course, there are 2 options in order to recover your account:
                 <ul>
-                  <li>Yes.</li>
+                  <li>Option 1: Using your <a href="<?= site_url('recover-via-email')?>"> email address</a></li>
+                  <li>Option 2: Using your <a href="<?= site_url('recover-via-phone')?>"> contact number</a></li>
                 </ul>
+              </ul>
+                
               <label>How can i send a message?</label>
               <ul> There are 3 steps in order to send your message:
                 <ul>
@@ -138,6 +152,8 @@
 
     <!-- Custom scripts for this template -->
     <script src="<?= site_url('assets/landing/js/creative.min.js')?>"></script>
+    <script src="<?= site_url('assets/js/main.js')?>" charset="utf-8"></script>
+
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 21, 2017 at 11:52 AM
+-- Generation Time: Jul 24, 2017 at 08:28 PM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -85,7 +85,6 @@ CREATE TABLE `et_messages_tbl` (
   `userid` int(11) NOT NULL,
   `contact` varchar(255) NOT NULL,
   `message` varchar(10000) NOT NULL,
-  `draft` int(11) NOT NULL,
   `archieve` int(11) NOT NULL,
   `important` int(11) NOT NULL,
   `message_code` int(11) NOT NULL,
@@ -96,10 +95,10 @@ CREATE TABLE `et_messages_tbl` (
 -- Dumping data for table `et_messages_tbl`
 --
 
-INSERT INTO `et_messages_tbl` (`id`, `userid`, `contact`, `message`, `draft`, `archieve`, `important`, `message_code`, `date`) VALUES
-(16, 32, '9265691152', 'asdasdasd', 0, 1, 0, 478718, 'July 21,  2017 12:39 PM'),
-(17, 32, '9555773952', 'asdasda', 0, 0, 1, 651583, 'July 21,  2017 12:39 PM'),
-(18, 37, '9555773952', 'asdasd', 0, 0, 1, 423900, 'July 21,  2017 12:40 PM');
+INSERT INTO `et_messages_tbl` (`id`, `userid`, `contact`, `message`, `archieve`, `important`, `message_code`, `date`) VALUES
+(16, 32, '9265691152', 'asdasdasd', 1, 0, 478718, 'July 21,  2017 12:39 PM'),
+(17, 32, '9555773952', 'asdasda', 0, 1, 651583, 'July 21,  2017 12:39 PM'),
+(18, 37, '9555773952', 'asdasd', 0, 1, 423900, 'July 21,  2017 12:40 PM');
 
 --
 -- Indexes for dumped tables

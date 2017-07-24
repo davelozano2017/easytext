@@ -22,7 +22,6 @@
     <li>
         <ul class="inbox-menu nav nav-list collapse">
             <li><a href="<?=site_url('messages')?>"><span class="fa fa-caret-right"></span> Messages</a></li>
-            <li><a href="<?=site_url('drafts')?>"><span class="fa fa-caret-right"></span> Drafts</a></li>
             <li><a href="<?=site_url('archieve')?>"><span class="fa fa-caret-right"></span> Archieve</a></li>
             <li><a href="<?=site_url('important')?>"><span class="fa fa-caret-right"></span> Important</a></li>    
         </ul>
@@ -58,7 +57,7 @@
 <!-- Start -->
 <form method="POST" name="FormMessageSend" novalidate>
     <button type="submit" id="send" ng-disabled="!FormMessageSend.$valid" class="btn btn-primary">Send</button>
-    <hr>
+        <hr>
     <ul class="nav nav-tabs">
         <li class="active"><a href="#compose" data-toggle="tab">Compose now</a></li>
     </ul>
@@ -80,7 +79,7 @@
                 </div>
                 <div class="form-group">
                     <label>Message</label>
-                    <textarea style="resize:none;height:70px" class="form-control" name="message" id="message" ng-model="message" required></textarea>
+                    <textarea style="resize:none;height:120px" class="form-control" name="message" id="message" ng-model="message" required></textarea>
                     <div ng-messages="FormMessageSend.message.$error" ng-if="FormMessageSend.message.$dirty">
                         <span ng-message="required" class="label label-danger">Message is required</span>
                     </div>

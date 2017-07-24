@@ -22,7 +22,6 @@
     <li>
         <ul class="inbox-menu nav nav-list collapse in">
             <li class="active"><a href="<?=site_url('messages')?>"><span class="fa fa-caret-right"></span> Messages</a></li>
-            <li><a href="<?=site_url('drafts')?>"><span class="fa fa-caret-right"></span> Drafts</a></li>
             <li><a href="<?=site_url('archieve')?>"><span class="fa fa-caret-right"></span> Archieve</a></li>
             <li><a href="<?=site_url('important')?>"><span class="fa fa-caret-right"></span> Important</a></li>    
         </ul>
@@ -57,10 +56,14 @@
 <div class="main-content">
 <!-- Start -->
 <form method="POST" name="FormMessageSend" novalidate>
+    <a href="<?=site_url('compose')?>" class="btn btn-primary"> Compose</a>
+    <hr>
     <ul class="nav nav-tabs">
         <li class="active"><a href="#compose" data-toggle="tab">Messages</a></li>
     </ul>
+    
     <div class="row">
+        
         <div class="col-md-12">
             <br>
             <div id="myTabContent" class="tab-content">
@@ -80,7 +83,6 @@
                 if(count($getmessages) == 0) {
                     echo '<td colspan=4 class="text-center alert alert-danger">No record found.</td>';
                 }
-
                 $i = 0;
                 foreach($getmessages as $row):
                 ?>

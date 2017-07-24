@@ -16,7 +16,7 @@ $data = array('fullname' => $row->fullname);
     <link rel="stylesheet" type="text/css" href="<?= site_url('assets/lib/bootstrap/css/bootstrap.min.css')?>">
     <link rel="stylesheet" type="text/css" href="<?= site_url('assets/lib/font-awesome/css/font-awesome.css')?>">
     <link rel="stylesheet" type="text/css" href="<?= site_url('assets/stylesheets/theme.css')?>">
-    <link rel="stylesheet" type="text/css" href="<?= site_url('assets/stylesheets/custom.css')?>">
+    <link rel="stylesheet" type="text/css" href="<?= site_url('assets/stylesheets/main.css')?>">
     <link rel="stylesheet" type="text/css" href="<?= site_url('assets/amaran/dist/css/amaran.min.css')?>">
     <link rel="stylesheet" type="text/css" href="<?= site_url('assets/amaran/dist/css/animate.min.css')?>">
     <link rel="stylesheet" type="text/css" href="<?= site_url('assets/stylesheets/premium.css')?>">
@@ -24,7 +24,7 @@ $data = array('fullname' => $row->fullname);
 
 </head>
 
-<body onload="Animate()" ng-app="app" ng-controller="MyCtrl" class="theme-blue">
+<body ng-app="app" ng-controller="MyCtrl" class="theme-blue">
 
     <!-- Demo page code -->
 
@@ -42,8 +42,6 @@ $data = array('fullname' => $row->fullname);
             $('#main-menu').append(uls.clone());
         });
     </script>
-
-<div style="display:none;" id="AnimateHeader" class="animate-bottom">
 
     <div class="navbar navbar-default" role="navigation">
         <div class="navbar-header">
@@ -67,5 +65,10 @@ $data = array('fullname' => $row->fullname);
         </div>
       </div>
     </div>
+<div id="loader-wrapper">
     <div id="loader"></div>
-<div style="display:none;" id="AnimateContent" class="animate-bottom">
+
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+
+</div>
